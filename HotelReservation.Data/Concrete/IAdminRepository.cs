@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelReservation.Data.Concrete
 {
-    public interface IAdminRepository : IGenericRepository
+    public interface IAdminRepository  : IGenericRepository
     {
     }
 }

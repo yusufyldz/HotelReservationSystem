@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace HotelReservation.Data.Abstract
 {
-    public class AdminRepository : IAdminRepository, IGenericRepository
+    public class AdminRepository : GenericRepository, IAdminRepository
     {
-        private readonly IGenericRepository _genericRepository;
-        public AdminRepository(IGenericRepository genericRepository)
+        private readonly AppDbContext _context;
+
+        public AdminRepository(AppDbContext appDbContext) : base(appDbContext) 
         {
-            _genericRepository = genericRepository;
+             _context = appDbContext;
         }
+
     }
 }

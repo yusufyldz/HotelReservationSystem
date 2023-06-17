@@ -1,4 +1,5 @@
 ﻿using HotelReservation.Data.Concrete;
+using HotelReservation.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace HotelReservation.Data.Abstract
     public class GenericRepository : IGenericRepository
     {
         private readonly AppDbContext _context;
-        public GenericRepository(AppDbContext appContext)
+        public GenericRepository(AppDbContext appContext) 
         {
 
             _context = appContext;
@@ -57,15 +58,20 @@ namespace HotelReservation.Data.Abstract
             return await _context.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
         }
 
-       
 
-      
-
-        public IQueryable<T> Where<T>(Expression<Func<T, bool>> predicate) where T : class, new()
+        public async Task AddAsync<T>(T entity) where T : class, new()
         {
-            return _context.Set<T>().AsNoTracking().Where(predicate);
+            await _context.Set<T>().AddAsync(entity);
         }
 
+        public async Task UpdateAsync<T>(int HotelId, int userId, T entity) where T : Entity, new()
+        {
+             _context.Set<T>().Update(entity);
+        }
 
+        public async Task Remove<T>(T entity) where T : class, new()
+        {
+            _context.Set<T>().Remove(entity);
+        }
     }
 }
