@@ -21,6 +21,6 @@ namespace HotelReservation.Model.Models
     {
 
         [Key] public int id { get; set; }
-        public int hote_id { get; set; }
+        public int hotel_id { get; set; }
     }
 }

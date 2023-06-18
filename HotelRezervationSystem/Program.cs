@@ -42,11 +42,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
                    opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
                    {
                        ValidateIssuer = true,
-                       ValidIssuer = builder.Configuration["Token:Issuer"],
+                       ValidIssuer = builder.Configuration["TokenOption:Issuer"],
                        ValidateAudience = true,
-                       ValidAudience = builder.Configuration["Token:Audinece"],
+                       ValidAudience = builder.Configuration["TokenOption:Audience"],
                        ValidateIssuerSigningKey = true,
-                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenOption:SecurityKey"])),
                        ValidateLifetime = true,
                        ClockSkew = TimeSpan.FromMinutes(1),
                    };

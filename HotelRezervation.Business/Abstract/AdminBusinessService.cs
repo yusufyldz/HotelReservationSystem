@@ -48,14 +48,14 @@ namespace HotelReservation.Business.Abstract
         }
         private async Task<string> CreateToken(User user)
         {
-            int minutes = int.Parse(_configuration.GetSection("Token:AccessTokenExpiration").Value);
+            int minutes = int.Parse(_configuration.GetSection("TokenOption:AccessTokenExpiration").Value);
             var accessTokenExpiration = DateTime.Now.AddMinutes(minutes);
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Token:AccessTokenExpiration").Value));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("TokenOption:SecurityKey").Value));
 
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             var token = new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken(
-                _configuration.GetSection("Token:Issuer").Value,
+                _configuration.GetSection("TokenOption:Issuer").Value,
                 expires: accessTokenExpiration,
                 notBefore: DateTime.Now,
                 claims: await GetClaims(user),
@@ -69,13 +69,13 @@ namespace HotelReservation.Business.Abstract
             new Claim(ClaimTypes.NameIdentifier,user.id.ToString()),
             new Claim(ClaimTypes.Name,user.full_name),
             new Claim(JwtRegisteredClaimNames.Email, user.email_address),
-            new Claim("hotel_id",user.hote_id.ToString()),
+            new Claim("hotel_id",user.hotel_id.ToString()),
             new Claim(ClaimTypes.Role,"Admin"),
             new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
             };
 
 
-            claims.Add(new Claim(JwtRegisteredClaimNames.Aud, _configuration.GetSection("Token:Audience").Value));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Aud, _configuration.GetSection("TokenOption:Audience").Value));
 
 
             return claims;

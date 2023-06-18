@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservation.Api.Controllers
 {
+
+    [Route("auth/[action]")]
+    [ApiController]
     public class AuthController : Controller
     {
         private readonly IAdminBusinessService _adminBusinessService;
@@ -12,6 +15,7 @@ namespace HotelReservation.Api.Controllers
 
             _adminBusinessService = adminBusinessService;
         }
+        [HttpPost]
         public async Task<UserLoginDto> Login(string Email, string Password)
         {
             return await _adminBusinessService.Login(Email, Password);
