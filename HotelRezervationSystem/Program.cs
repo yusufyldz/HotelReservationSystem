@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddCors(options =>
 {
@@ -24,7 +23,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(
-    options => { options. UseNpgsql(builder.Configuration.GetConnectionString("PostgresqlServer")); });
+    options => { options. UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")); });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

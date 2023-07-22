@@ -13,7 +13,7 @@ namespace HotelReservation.Model.Models
         public string  email_address { get; set; }
         public string phone_number { get; set; }
         public string password { get; set; }
-        public short active { get; set; } //0-aktif 1-pasif
+        public bool active { get; set; } //0-aktif 1-pasif
     }
 
 
